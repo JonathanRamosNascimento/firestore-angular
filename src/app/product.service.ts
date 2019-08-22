@@ -31,4 +31,10 @@ export class ProductService {
   updateProduct(p: Product) {
     return this.productsCollection.doc(p.id).set(p);
   }
+
+  searchByName(name: string): Observable<Product[]> {
+    return this.afs.collection<Product>('products',
+      ref => ref.orderBy('name').startAt(name).endAt(name+'\uf8ff'))
+      .valueChanges();
+  }
 }

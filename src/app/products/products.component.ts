@@ -13,6 +13,7 @@ import { Observable } from 'rxjs';
 export class ProductsComponent implements OnInit {
 
   products$: Observable<Product[]>;
+  filterProducts$: Observable<Product[]>;
   displayedColumns = ['name', 'price', 'stock', 'operations'];
 
   @ViewChild('name', { static: true }) productName: ElementRef;
@@ -82,5 +83,9 @@ export class ProductsComponent implements OnInit {
         console.error(e);
         this.snackBar.open('Error when trying to remove the product.', 'OK', { duration: 2000 });
       })
+  }
+
+  filter(event) {
+    this.filterProducts$ = this.productService.searchByName(event.target.value);
   }
 }
