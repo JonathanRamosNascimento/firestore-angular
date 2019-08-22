@@ -3,6 +3,7 @@ import { ProductService } from './../product.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-products',
@@ -10,6 +11,9 @@ import { MatSnackBar } from '@angular/material';
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent implements OnInit {
+
+  products$: Observable<Product[]>;
+  displayedColumns = ['name', 'price', 'stock', 'operations'];
 
   productForm = this.fb.group({
     id: [undefined],
@@ -25,6 +29,7 @@ export class ProductsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.products$ = this.productService.getProducts();
   }
 
   onSubmit() {

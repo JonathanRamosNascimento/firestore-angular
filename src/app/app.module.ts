@@ -1,3 +1,4 @@
+import { MaterialModule } from './material.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -21,6 +22,7 @@ import { ProductsComponent } from './products/products.component';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
     AngularFireDatabaseModule,
+    MaterialModule
   ],
   providers: [],
   bootstrap: [AppComponent]
