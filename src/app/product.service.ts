@@ -19,6 +19,6 @@ export class ProductService {
   }
 
   addProduct(p: Product) {
-    this.productsCollection.add(p);
+    return this.productsCollection.add(p);
   }
 }
