@@ -1,6 +1,6 @@
 import { Product } from './../models/product.model';
 import { ProductService } from './../product.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material';
 import { Observable } from 'rxjs';
@@ -14,6 +14,8 @@ export class ProductsComponent implements OnInit {
 
   products$: Observable<Product[]>;
   displayedColumns = ['name', 'price', 'stock', 'operations'];
+
+  @ViewChild('name', {static: true}) productName: ElementRef;
 
   productForm = this.fb.group({
     id: [undefined],
@@ -46,6 +48,8 @@ export class ProductsComponent implements OnInit {
     this.productService.addProduct(p)
       .then(() => {
         this.snackBar.open('Product added.', 'OK', {duration: 2000});
+        this.productForm.reset({name: '', stock: 0, price: 0, id: undefined});
+        this.productName.nativeElement.focus();
       })
       .catch(() => {
         this.snackBar.open('Error on submit the product.', 'OK', {duration: 2000});
